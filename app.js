@@ -8,9 +8,9 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-app.get("/", (req, res) => {
-    res.json({ message: "Hello from app.js..." })
-})
+const apiRouter = require("./routes/index")
+
+app.use("/api", apiRouter)
 
 app.listen(3000, () => {
     console.log(`listening on http://localhost:3000`)
