@@ -9,4 +9,4 @@ function generateShortCode(url, length = 8) {
     return shortCode
 }
 
-module.exports = generateShortCode
+module.exports = { generateShortCode }
