@@ -9,4 +9,12 @@ function generateShortCode(url, length = 8) {
     return shortCode
 }
 
+function isValidHttpUrl(string) {
+    try {
+        return Boolean(new URL(string))
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = { generateShortCode }
