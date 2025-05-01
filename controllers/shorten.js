@@ -1,6 +1,7 @@
 const utils = require("../utils/index")
+const queries = require("../utils/queries/index")
 
-function shortenPostReq(req, res) {
+async function shortenPostReq(req, res) {
     const { longUrl } = req.body
 
     if (!longUrl) return res.status(400).json({
@@ -13,8 +14,7 @@ function shortenPostReq(req, res) {
 
     try {
         const shortCode = utils.generateShortCode(longUrl)
-
-        // add to db here
+        await queries.addUrl(longUrl, shortCode)
 
         return res.status(201).json({
             originalUrl: longUrl,
@@ -26,8 +26,6 @@ function shortenPostReq(req, res) {
             error: "Failed to shorten URL"
         })
     }
-
-
 
 
 }
