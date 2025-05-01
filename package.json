@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest --detectOpenHandles",
+    "test": "jest --detectOpenHandles --watchAll --no-cache",
     "dev": "nodemon app.js"
   },
   "keywords": [],
