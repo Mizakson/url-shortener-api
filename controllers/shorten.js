@@ -4,7 +4,7 @@ function shortenPostReq(req, res) {
     const { longUrl } = req.body
     const shortCode = utils.generateShortCode(longUrl)
 
-    res.status(200).json({
+    res.status(201).json({
         originalUrl: longUrl,
         shortCode
     })

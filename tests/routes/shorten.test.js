@@ -1,9 +1,7 @@
 require("dotenv").config()
 const request = require("supertest")
-const express = require("express")
-const app = express()
+const app = require("../../app")
 
-const baseUrl = process.env.BASE_URL
 const wikipediaSearchUrl = `
 https://www.google.com/search?q=wikipedia&oq=wiki&gs_lcrp=
 EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyDwgBEEUYORiDAR
@@ -11,24 +9,26 @@ ixAxiABDIQCAIQLhjHARixAxjRAxiABDIGCAMQBRhAMgYIBBBFGEEyBggF
 EEUYQTIGCAYQRRhBMgYIBxBFGDzSAQgxMzA5ajBqN6gCCLACAfEFqHrKKM
 -kGh8&sourceid=chrome&ie=UTF-8
 `
-const wikipediaUrlShortCode = "bAyjhsWZ"
 
 describe("POST /shorten", () => {
-    it('works', (done) => {
-        request(app)
+    let server
+    beforeAll(async () => {
+        server = app.listen()
+    })
+    it('recieves data and creates a new resource', (done) => {
+        const response = request(app)
             .post("/api/shorten")
-            .send(`longUrl=${wikipediaSearchUrl}`)
-            .expect((res) => {
-                res.body.longUrl = wikipediaSearchUrl
-                res.shortCode = wikipediaUrlShortCode
-            })
-            .expect(200, {
-                longUrl: wikipediaSearchUrl,
-                shortCode: wikipediaUrlShortCode
-            })
+            .send({ longUrl: wikipediaSearchUrl })
+            .set("Content-Type", "application/json")
+            .set("Accept", "application/json")
+            .expect(201)
             .end((err, res) => {
                 if (err) return done(err)
                 return done()
             })
     })
+    afterAll(async () => {
+        await server.close()
+    })
 })
+
