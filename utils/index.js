@@ -17,4 +17,4 @@ function isValidHttpUrl(string) {
     }
 }
 
-module.exports = { generateShortCode }
+module.exports = { generateShortCode, isValidHttpUrl }

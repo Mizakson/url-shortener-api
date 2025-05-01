@@ -15,8 +15,9 @@ describe("POST /shorten", () => {
     beforeAll(async () => {
         server = app.listen()
     })
+
     it('recieves data and creates a new resource', (done) => {
-        const response = request(app)
+        const response = request(server)
             .post("/api/shorten")
             .send({ longUrl: wikipediaSearchUrl })
             .set("Content-Type", "application/json")
@@ -27,6 +28,34 @@ describe("POST /shorten", () => {
                 return done()
             })
     })
+
+    it('should return 400 status if no url entered', (done) => {
+        const response = request(server)
+            .post("/api/shorten")
+            .send({})
+            .expect(400, {
+                error: "Please provide a url"
+            })
+            .end((err, res) => {
+                if (err) return done(err)
+                return done()
+            })
+    })
+
+    it('should return 400 status if invalid url entered', (done) => {
+        const response = request(server)
+            .post("/api/shorten")
+            .send({ longUrl: "This is not a url" })
+            .expect(400, {
+                error: "Please provide a valid url"
+            })
+            .end((err, res) => {
+                if (err) return done(err)
+                return done()
+            })
+    })
+
+
     afterAll(async () => {
         await server.close()
     })
