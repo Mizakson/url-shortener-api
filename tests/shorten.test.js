@@ -1,6 +1,6 @@
 require("dotenv").config()
 const request = require("supertest")
-const app = require("../../app")
+const app = require("../app")
 
 const wikipediaSearchUrl = `
 https://www.google.com/search?q=wikipedia&oq=wiki&gs_lcrp=
