@@ -1,7 +1,3 @@
-// get request to redirect to url, dynamic route shortCode
-// perform 302 redirect to original url from db
-// clicks tracked also here?
-
 const utils = require("../utils/index")
 const queries = require("../utils/queries/index")
 
