@@ -1,5 +1,6 @@
 const utils = require("../utils/index")
 const queries = require("../utils/queries/index")
+const prisma = require("../utils/queries/prisma")
 
 async function shortenPostReq(req, res) {
     const { longUrl } = req.body
@@ -25,6 +26,8 @@ async function shortenPostReq(req, res) {
         return res.status(500).json({
             error: "Failed to shorten URL"
         })
+    } finally {
+        await prisma.$disconnect()
     }
 
 
