@@ -1,5 +1,5 @@
-const utils = require("../utils/index")
-const queries = require("../utils/queries/index")
+const utils = require("../utils")
+const queries = require("../utils/queries")
 const prisma = require("../utils/queries/prisma")
 
 async function shortenPostReq(req, res) {

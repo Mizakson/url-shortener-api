@@ -1,5 +1,5 @@
-const utils = require("../utils/index")
-const queries = require("../utils/queries/index")
+const utils = require("../utils")
+const queries = require("../utils/queries")
 
 async function urlGetReq(req, res) {
     const { shortCode } = req.params
