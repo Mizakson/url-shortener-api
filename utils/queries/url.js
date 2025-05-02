@@ -1,7 +1,7 @@
 const prisma = require("./prisma")
 
 const getUrlByShortCode = async (shortCode) => {
-    const entry = await prisma.urls.findUnique({
+    const entry = await prisma.url.findUnique({
         where: {
             shortCode: shortCode
         }
@@ -11,7 +11,7 @@ const getUrlByShortCode = async (shortCode) => {
 }
 
 const incrementUrlTimesClicked = async (shortCode) => {
-    const entry = await prisma.urls.update({
+    const entry = await prisma.url.update({
         where: {
             shortCode: shortCode
         },
