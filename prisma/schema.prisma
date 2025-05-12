@@ -16,7 +16,7 @@ datasource db {
 
 model Url {
   id           String   @id @default(uuid())
-  originalUrl  String   @unique
+  originalUrl  String
   shortCode    String   @unique
   createdAt    DateTime @default(now())
   timesClicked Int      @default(0)
