@@ -4,12 +4,7 @@ const prisma = require("../utils/queries/prisma")
 
 let server
 
-const wikipediaSearchUrl = `
-https://www.google.com/search?q=wikipedia&oq=wiki&gs_lcrp=
-EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyDwgBEEUYORiDAR
-ixAxiABDIQCAIQLhjHARixAxjRAxiABDIGCAMQBRhAMgYIBBBFGEEyBggF
-EEUYQTIGCAYQRRhBMgYIBxBFGDzSAQgxMzA5ajBqN6gCCLACAfEFqHrKKM
--kGh8&sourceid=chrome&ie=UTF-8
+const wikipediaSearchUrl = `https://www.google.com/search?q=wikipedia&oq=wiki&gs_lcrp=EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyDwgBEEUYORiDARixAxiABDIQCAIQLhjHARixAxjRAxiABDIGCAMQBRhAMgYIBBBFGEEyBggFEEUYQTIGCAYQRRhBMgYIBxBFGDzSAQgxMzA5ajBqN6gCCLACAfEFqHrKKM-kGh8&sourceid=chrome&ie=UTF-8
 `
 
 const wikipediaSearchShortCode = "bAyjhsWZ"
@@ -20,9 +15,9 @@ describe("GET /:shortCode", () => {
         await prisma.$connect()
     })
 
-    beforeEach(async () => {
+    // beforeEach(async () => {
 
-    })
+    // })
 
     afterEach(async () => {
         await prisma.url.deleteMany()
@@ -41,8 +36,10 @@ describe("GET /:shortCode", () => {
             }
         })
 
+        console.log(data)
+
         const response = await request(server)
-            .get(`/${data.shortCode}`)
+            .get(`/api/${data.shortCode}`)
             .expect(302)
     })
 })

@@ -1,9 +1,9 @@
 const prisma = require("./prisma")
 
 const getUrlByShortCode = async (shortCode) => {
-    const entry = await prisma.url.findUnique({
+    const entry = await prisma.url.findFirst({
         where: {
-            shortCode: shortCode
+            shortCode
         }
     })
 
@@ -11,19 +11,27 @@ const getUrlByShortCode = async (shortCode) => {
 }
 
 const incrementUrlTimesClicked = async (shortCode) => {
-    const entry = await prisma.url.update({
-        where: {
-            shortCode: shortCode
-        },
-        data: {
-            timesClicked: {
-                increment: 1
+    if (!shortCode) {
+        console.error("Error: shortCode is undefined in incrementUrlTimesClicked")
+        return null
+    }
+    try {
+        const entry = await prisma.url.update({
+            where: {
+                shortCode: shortCode,
+            },
+            data: {
+                timesClicked: {
+                    increment: 1
+                }
             }
-        }
-    })
-
-    return entry
-}
+        })
+        return entry
+    } catch (error) {
+        console.error("Error incrementing timesClicked:", error)
+        return null
+    }
+};
 
 module.exports = {
     getUrlByShortCode,

@@ -5,7 +5,7 @@ const api = Router()
 const shortenRouter = require("./shorten")
 const urlRouter = require("./url")
 
-api.use("/shorten", shortenRouter)
 api.use("/:shortCode", urlRouter)
+api.use("/shorten", shortenRouter)
 
 module.exports = api

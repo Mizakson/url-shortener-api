@@ -8,11 +8,9 @@ async function urlGetReq(req, res) {
         const urlData = await queries.getUrlByShortCode(shortCode)
 
         if (urlData) {
-            const originalUrl = urlData.originalUrl
+            await queries.incrementUrlTimesClicked(urlData.shortCode)
 
-            await queries.incrementUrlTimesClicked(shortCode)
-
-            return res.redirect(302, urlData)
+            return res.redirect(302, urlData.originalUrl)
         } else {
             return res.status(404).json({ error: "Shortcode not found" })
         }
