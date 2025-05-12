@@ -26,8 +26,6 @@ async function shortenPostReq(req, res) {
         return res.status(500).json({
             error: "Failed to shorten URL"
         })
-    } finally {
-        await prisma.$disconnect()
     }
 
 

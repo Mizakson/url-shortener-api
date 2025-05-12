@@ -12,7 +12,7 @@ async function urlGetReq(req, res) {
 
             await queries.incrementUrlTimesClicked(shortCode)
 
-            return res.redirect(302, originalUrl)
+            return res.redirect(302, urlData)
         } else {
             return res.status(404).json({ error: "Shortcode not found" })
         }
@@ -22,8 +22,6 @@ async function urlGetReq(req, res) {
         return res.status(500).json({
             error: "Internal server error"
         })
-    } finally {
-        await prisma.$disconnect()
     }
 
 }
