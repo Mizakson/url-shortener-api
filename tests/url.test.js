@@ -53,4 +53,12 @@ describe("GET /:shortCode", () => {
         const updatedCounter = await queries.incrementUrlTimesClicked(data.shortCode)
         expect(updatedCounter.timesClicked).toBe(1)
     })
+
+    it("should return 404 if invalid shortCode is entered", async () => {
+        const fakeCode = "NotValidCode"
+
+        const response = await request(server)
+            .get(`/api/${fakeCode}`)
+            .expect(404, { error: "Shortcode not found" })
+    })
 })
