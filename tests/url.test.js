@@ -1,6 +1,8 @@
 const request = require("supertest")
 const app = require("../app")
 const prisma = require("../utils/queries/prisma")
+const queries = require("../utils/queries")
+const utils = require("../utils")
 
 let server
 
@@ -35,11 +37,20 @@ describe("GET /:shortCode", () => {
                 shortCode: wikipediaSearchShortCode
             }
         })
-
-        console.log(data)
-
         const response = await request(server)
             .get(`/api/${data.shortCode}`)
             .expect(302)
+
+        // the original header has %0A at the start and end of url
+        const locationHeader = response.headers.location
+        // console.log(locationHeader)
+        const cleanedLocationHeader = locationHeader.replace(/%0A/g, "")
+        console.log(cleanedLocationHeader)
+        // trim to get actual strings to compare
+        expect(cleanedLocationHeader.trim()).toBe(data.originalUrl.trim())
+
+        // test to confirm increment counter works
+        const updatedCounter = await queries.incrementUrlTimesClicked(data.shortCode)
+        expect(updatedCounter.timesClicked).toBe(1)
     })
 })
