@@ -10,8 +10,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 const limiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1hr
-    limit: 240, // 4 requests per min 
+    windowMs: 60 * 1000, // 1 min
+    limit: 100, // 100 requests per min 
     standardHeaders: "draft-8",
     legacyHeaders: false,
     message: "request limit reached",
