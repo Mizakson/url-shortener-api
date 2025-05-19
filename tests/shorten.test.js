@@ -13,9 +13,9 @@ describe("POST /shorten", () => {
         await prisma.$connect()
     })
 
-    // beforeEach(async () => {
-
-    // })
+    beforeEach(async () => {
+        await queries.addUrl("https://hello.com", "zy46fe3g")
+    })
 
     afterEach(async () => {
         await prisma.url.deleteMany()
