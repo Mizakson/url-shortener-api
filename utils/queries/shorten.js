@@ -1,12 +1,13 @@
 const prisma = require("./prisma")
+const utils = require("../index")
 
-const addUrl = async (originalUrl, shortCode) => {
+const addUrl = async (originalUrl) => {
 
     try {
         const entry = await prisma.url.create({
             data: {
                 originalUrl,
-                shortCode
+                shortCode: utils.generateShortCode(originalUrl)
             }
         })
 
