@@ -5,7 +5,7 @@ const queries = require("../utils/queries")
 
 let server
 const wikipediaSearchUrl = `https://www.google.com/search?q=wikipedia&oq=wiki&gs_lcrp=EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyDwgBEEUYORiDARixAxiABDIQCAIQLhjHARixAxjRAxiABDIGCAMQBRhAMgYIBBBFGEEyBggFEEUYQTIGCAYQRRhBMgYIBxBFGDzSAQgxMzA5ajBqN6gCCLACAfEFqHrKKM-kGh8&sourceid=chrome&ie=UTF-8`
-const wikipediaSearchShortCode = "bAyjhsWZ"
+
 
 describe("POST /shorten", () => {
     beforeAll(async () => {
@@ -27,7 +27,7 @@ describe("POST /shorten", () => {
     })
 
     it('recieves data and creates a new resource', async () => {
-        const data = await queries.addUrl(wikipediaSearchUrl, wikipediaSearchShortCode)
+        const data = await queries.addUrl(wikipediaSearchUrl)
         const response = request(server)
             .post("/api/shorten")
             .send(data)
@@ -38,7 +38,7 @@ describe("POST /shorten", () => {
     })
 
     it('should return 400 status if no url entered', async () => {
-        const data = queries.addUrl("", wikipediaSearchShortCode)
+        const data = queries.addUrl("")
 
         const response = request(server)
             .post("/api/shorten")
@@ -49,7 +49,7 @@ describe("POST /shorten", () => {
     })
 
     it('should return 400 status if invalid url entered', async () => {
-        const data = queries.addUrl(wikipediaSearchUrl, "")
+        const data = queries.addUrl("wikipediaSearchUr")
 
         const response = request(server)
             .post("/api/shorten")
