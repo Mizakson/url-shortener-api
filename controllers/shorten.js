@@ -14,12 +14,10 @@ async function shortenPostReq(req, res) {
     })
 
     try {
-        const shortCode = utils.generateShortCode(longUrl)
-        await queries.addUrl(longUrl, shortCode)
+        const entry = await queries.addUrl(longUrl)
 
         return res.status(201).json({
-            originalUrl: longUrl,
-            shortCode
+            entry
         })
     } catch (error) {
         console.error("URL shortening error", error)
