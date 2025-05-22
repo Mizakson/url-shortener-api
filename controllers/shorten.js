@@ -13,20 +13,35 @@ async function shortenPostReq(req, res) {
         error: "Please provide a valid url"
     })
 
-    try {
-        const entry = await queries.addUrl(longUrl)
+    let attempt = 0
+    let maxAttempts = 5
+    let entry = null
 
-        return res.status(201).json({
-            entry
-        })
-    } catch (error) {
-        console.error("URL shortening error", error)
-        return res.status(500).json({
-            error: "Failed to shorten URL"
-        })
+    while (attempt < maxAttempts) {
+        try {
+            const result = await queries.addUrl(longUrl)
+
+            if (result && result.success) {
+                entry = result.data
+                return res.status(201).json({
+                    entry
+                })
+            } else if (result && result.alreadyExists) {
+                console.log(`Attempt ${attempt + 1}: shortCode collision detected, retrying...`)
+            } else {
+                console.error("Error during URL creation", result ? result.error : "An unknown error has occured")
+                return res.status(500).json({ error: "Failed to shorten URL" })
+            }
+        } catch (error) {
+            console.error("URL shortening error", error)
+            return res.status(500).json({
+                error: "Failed to shorten URL"
+            })
+        }
+        attempt++
+
+        return res.status(500).json({ error: "Failed to generate a unique short URL after multiple attempts." })
     }
-
-
 }
 
 module.exports = { shortenPostReq }
