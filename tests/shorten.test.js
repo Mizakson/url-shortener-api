@@ -14,7 +14,7 @@ describe("POST /shorten", () => {
     })
 
     beforeEach(async () => {
-        await queries.addUrl("https://hello.com", "zy46fe3g")
+        await queries.addUrl("https://hello.com")
     })
 
     afterEach(async () => {
