@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest --detectOpenHandles --watchAll --no-cache",
     "dev": "nodemon app.js",
-    "query": "nodemon index.ts"
+    "query": "nodemon index.ts",
+    "shortenTest": "jest --detectOpenHandles --watch tests/shorten.test.js",
+    "urlTest": "jest --detectOpenHandles --watch tests/url.test.js"
   },
   "keywords": [],
   "author": "",
