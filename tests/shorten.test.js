@@ -2,10 +2,12 @@ const request = require("supertest")
 const app = require("../app")
 const prisma = require("../utils/queries/prisma")
 const queries = require("../utils/queries")
+const utils = require("../utils")
 
 let server
 const wikipediaSearchUrl = `https://www.google.com/search?q=wikipedia&oq=wiki&gs_lcrp=EgZjaHJvbWUqCggAEAAYsQMYgAQyCggAEAAYsQMYgAQyDwgBEEUYORiDARixAxiABDIQCAIQLhjHARixAxjRAxiABDIGCAMQBRhAMgYIBBBFGEEyBggFEEUYQTIGCAYQRRhBMgYIBxBFGDzSAQgxMzA5ajBqN6gCCLACAfEFqHrKKM-kGh8&sourceid=chrome&ie=UTF-8`
 
+jest.mock("../utils/queries");
 
 describe("POST /shorten", () => {
     beforeAll(async () => {
@@ -14,7 +16,8 @@ describe("POST /shorten", () => {
     })
 
     beforeEach(async () => {
-        await queries.addUrl("https://hello.com")
+        jest.clearAllMocks()
+        jest.restoreAllMocks()
     })
 
     afterEach(async () => {
@@ -57,6 +60,36 @@ describe("POST /shorten", () => {
             .expect(400, {
                 error: "Please provide a valid url"
             })
+
+    })
+
+    it('should create a URL successfully after one shortCode collision', async () => {
+        const testUrl = "https://www.test.com/url/example"
+        const initialCode = "AAAAAAAA" // 8 char length
+        const finalCode = "BBBBBBBB"
+
+        const mockEntry = { orignalUrl: testUrl, shortCode: finalCode }
+
+        // mock generateShortCode util method
+        const mockGenerateShortCode = jest.spyOn(utils, "generateShortCode")
+        mockGenerateShortCode.mockReturnValueOnce(initialCode).mockReturnValueOnce(finalCode)
+
+        queries.addUrl
+            .mockResolvedValueOnce({ data: null, success: false, alreadyExists: true }) // collision
+            .mockResolvedValueOnce({ data: mockEntry, success: true, alreadyExists: false }); // success
+
+        const response = await request(server)
+            .post("/api/shorten")
+            .send({ longUrl: testUrl })
+            .expect(201)
+
+    })
+
+    it('should create a URL successfully after multiple shortCode collisions', async () => {
+
+    })
+
+    it('should return an error after max attempts at URL creation fails', async () => {
 
     })
 

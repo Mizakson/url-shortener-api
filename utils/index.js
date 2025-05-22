@@ -3,9 +3,11 @@ const crytpo = require("node:crypto")
 // generate shortCode with a default length of 8
 // using 'sha256' hashing algorithm
 function generateShortCode(url, length = 8) {
-    const hash = crytpo.createHash('sha256').update(url).digest('base64url')
-    const shortCode = hash.substring(0, length)
-
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    let shortCode = ''
+    for (let i = 0; i < length; i++) {
+        shortCode += characters.charAt(Math.floor(Math.random() * characters.length))
+    }
     return shortCode
 }
 

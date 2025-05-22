@@ -39,9 +39,8 @@ async function shortenPostReq(req, res) {
             })
         }
         attempt++
-
-        return res.status(500).json({ error: "Failed to generate a unique short URL after multiple attempts." })
     }
+    return res.status(500).json({ error: "Failed to generate a unique short URL after multiple attempts." })
 }
 
 module.exports = { shortenPostReq }

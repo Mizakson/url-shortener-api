@@ -24,7 +24,7 @@ const addUrl = async (originalUrl) => {
             return { data: null, success: false, alreadyExists: false, error: "Database error" }
         } else {
             console.error("An unexpected error has occured", error)
-            return { data: null, success: false, alreadyExists: false, error: "Internal server error" }
+            return { data: null, success: false, alreadyExists: false, error: "Internal server error", details: error.message }
         }
 
     }
