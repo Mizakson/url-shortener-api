@@ -76,16 +76,43 @@ describe("POST /shorten", () => {
 
         queries.addUrl
             .mockResolvedValueOnce({ data: null, success: false, alreadyExists: true }) // collision
-            .mockResolvedValueOnce({ data: mockEntry, success: true, alreadyExists: false }); // success
+            .mockResolvedValueOnce({ data: mockEntry, success: true, alreadyExists: false }) // success
 
         const response = await request(server)
             .post("/api/shorten")
             .send({ longUrl: testUrl })
-            .expect(201)
+        // .expect(201)
+
+        expect(response.statusCode).toBe(201)
+        expect(response.body.entry).toEqual(mockEntry)
 
     })
 
     it('should create a URL successfully after multiple shortCode collisions', async () => {
+        const testUrl = "https://www.longer-example/user/profile/settings"
+
+        const shortCodes = ["AAAAAAAA", "BBBBBBBB", "CCCCCCCC", "DDDDDDDD"]
+        const finalCode = "DDDDDDDD"
+
+        const mockEntry = { orignalUrl: testUrl, shortCode: finalCode }
+
+        const mockGenerateShortCode = jest.spyOn(utils, "generateShortCode")
+        mockGenerateShortCode.mockReturnValueOnce(shortCodes[0])
+            .mockReturnValueOnce(shortCodes[1])
+            .mockReturnValueOnce(shortCodes[2])
+            .mockReturnValueOnce(shortCodes[3])
+
+        queries.addUrl
+            .mockResolvedValueOnce({ data: null, success: false, alreadyExists: true }) // collision
+            .mockResolvedValueOnce({ data: null, success: false, alreadyExists: true }) // collision
+            .mockResolvedValueOnce({ data: mockEntry, success: true, alreadyExists: false }) // success
+
+        const response = await request(server)
+            .post("/api/shorten")
+            .send({ longUrl: testUrl })
+
+        expect(response.statusCode).toBe(201)
+        expect(response.body.entry).toEqual(mockEntry)
 
     })
 
