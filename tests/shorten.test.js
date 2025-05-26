@@ -117,6 +117,20 @@ describe("POST /shorten", () => {
     })
 
     it('should return an error after max attempts at URL creation fails', async () => {
+        const testUrl = "https://www.maxcollision.com/wont/change"
+        const shortCode = "HHHHHHHH"
+
+        const mockGenerateShortCode = jest.spyOn(utils, 'generateShortCode')
+        mockGenerateShortCode.mockReturnValueOnce(shortCode)
+
+        queries.addUrl.mockResolvedValueOnce({ data: null, success: false, alreadyExists: true })
+
+        const response = await request(server)
+            .post("/api/shorten")
+            .send({ longUrl: testUrl })
+
+        expect(response.statusCode).toBe(500)
+        expect(response.body.error).toContain("Failed to shorten URL")
 
     })
 
