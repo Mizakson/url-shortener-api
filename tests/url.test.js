@@ -37,12 +37,9 @@ describe("GET /:shortCode", () => {
         
         // trim to get actual strings to compare
         expect(cleanedLocationHeader.trim()).toBe(entry.data.originalUrl.trim())
-
-        // test to confirm increment counter works
-        // it works but when watching other tests it calls more than once
         
-        // const updatedCounter = await queries.incrementUrlTimesClicked(entry.data.shortCode)
-        // expect(updatedCounter.timesClicked).toBe(1)
+        const updatedCounter = await queries.incrementUrlTimesClicked(entry.data.shortCode)
+        expect(updatedCounter.timesClicked).toBe(1)
     })
 
     it("should return 404 if invalid shortCode is entered", async () => {
