@@ -23,9 +23,4 @@ const apiRouter = require("./routes/index")
 
 app.use("/api", apiRouter)
 
-app.listen(3000, () => {
-    console.log(`listening on ${process.env.BASE_URL}`)
-    // comment out console statement when running tests
-})
-
 module.exports = app
