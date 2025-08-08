@@ -15,10 +15,6 @@ describe("GET /:shortCode", () => {
         await prisma.$connect()
     })
 
-    // beforeEach(async () => {
-
-    // })
-
     afterEach(async () => {
         await prisma.url.deleteMany()
     })
@@ -37,14 +33,14 @@ describe("GET /:shortCode", () => {
 
         // the original header has %0A at the start and end of url
         const locationHeader = response.headers.location
-        // console.log(locationHeader)
         const cleanedLocationHeader = locationHeader.replace(/%0A/g, "")
-        // console.log(cleanedLocationHeader)
+        
         // trim to get actual strings to compare
         expect(cleanedLocationHeader.trim()).toBe(entry.data.originalUrl.trim())
 
         // test to confirm increment counter works
         // it works but when watching other tests it calls more than once
+        
         // const updatedCounter = await queries.incrementUrlTimesClicked(entry.data.shortCode)
         // expect(updatedCounter.timesClicked).toBe(1)
     })
