@@ -25,7 +25,7 @@ describe("GET /:shortCode", () => {
     })
 
     it("should redirect to the original URL and increment timesClicked", async () => {
-        const entry = await queries.addUrl(wikipediaSearchUrl)
+        const entry = await queries.addUrl('www.test.url.com/this/is/a/test')
 
         const response = await request(server)
             .get(`/api/${entry.data.shortCode}`)
@@ -34,12 +34,15 @@ describe("GET /:shortCode", () => {
         // the original header has %0A at the start and end of url
         const locationHeader = response.headers.location
         const cleanedLocationHeader = locationHeader.replace(/%0A/g, "")
-        
+
         // trim to get actual strings to compare
         expect(cleanedLocationHeader.trim()).toBe(entry.data.originalUrl.trim())
-        
+
         const updatedCounter = await queries.incrementUrlTimesClicked(entry.data.shortCode)
-        expect(updatedCounter.timesClicked).toBe(1)
+        let initialTimesClicked = updatedCounter.timesClicked
+
+        expect(updatedCounter.timesClicked).toBe(initialTimesClicked++)
+
     })
 
     it("should return 404 if invalid shortCode is entered", async () => {

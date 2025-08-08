@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "jest --detectOpenHandles --watchAll --no-cache",
-    "dev": "nodemon app.js",
+    "dev": "nodemon server.js",
     "query": "nodemon index.ts",
     "shortenTest": "jest --detectOpenHandles --watch tests/shorten.test.js",
     "urlTest": "jest --detectOpenHandles --watch tests/url.test.js"
