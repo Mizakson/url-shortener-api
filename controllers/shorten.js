@@ -21,7 +21,7 @@ async function shortenPostReq(req, res) {
         try {
             const result = await queries.addUrl(longUrl)
 
-            if (result && result.shortCode) {
+            if (result && result.success) {
                 entry = result.data
                 return res.status(201).json({
                     message: "Resource created successfully",
