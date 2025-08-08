@@ -21,10 +21,11 @@ async function shortenPostReq(req, res) {
         try {
             const result = await queries.addUrl(longUrl)
 
-            if (result && result.success) {
+            if (result && result.shortCode) {
                 entry = result.data
                 return res.status(201).json({
-                    entry
+                    message: "Resource created successfully",
+                    entry: result.data
                 })
             } else if (result && result.alreadyExists) {
                 console.log(`Attempt ${attempt + 1}: shortCode collision detected, retrying...`)
