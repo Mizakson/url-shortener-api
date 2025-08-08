@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node --watch server.js",
     "test": "jest --detectOpenHandles --watchAll --no-cache",
     "dev": "nodemon server.js",
     "query": "nodemon index.ts",
