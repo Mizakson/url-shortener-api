@@ -1,4 +1,4 @@
-## url-shortener-api
+# url-shortener-api
 
 A simple and robust URL shortener built as a RESTful API
 
@@ -9,6 +9,8 @@ A simple and robust URL shortener built as a RESTful API
 * [API Usage](#api-usage)
 * [Setup and Installation](#setup-and-installation)
 * [Testing](#testing)
+* [What I Learned](#what-i-learned)
+* [Future Improvements](#future-improvements)
 * [License](#license)
 
 ## Project Overview
@@ -22,6 +24,8 @@ This project is a RESTful back-end API designed to shorten URLs into unique shor
 * __Collision Handling__: Automatically retries generating a new shortcode if a collision with an existing code is detected.
   
 * __Database Integration__: Persists URL data using a database.
+
+* __URL Metadata__: Keeps track of the number of times a URL is clicked.
 
 ## Tech Stack
 * __Node.js & Express__: Core back-end framework for the API server.
@@ -120,11 +124,36 @@ To run this project locally or make your own version of it, follow these steps:
   ```
   The server will run on the port specified in your `server.js` file.
 
-###Testing
+## Testing
   To run the test suite, run the following command
   ``` bash
   npm test
   ```
+
+## What I Learned
+Building this project provided valuable experience in several key areas of back-end development:
+
+  * __API Design__: I learned how to structure a RESTful API with clear endpoints for different actions (POST for creation, GET for retrieval), ensuring proper use of HTTP methods and status codes.
+
+  * __Database Management__: This project deepened my understanding of database schemas and the importance of an ORM like Prisma for handling data migrations and interactions in a type-safe way.
+
+  * __Deployment & Environment Variables__: I gained hands-on experience deploying a Node.js application to a cloud service (Render) while using environment variables to securely manage sensitive data like database URLs.
+
+  * __Tests__: Using Jest and Supertest reinforced the importance of unit and integration testing for verifying API functionality.
+
+## Future Improvements
+This project serves as a solid foundtion, and there are also several ways it can be expanded and improved upon in the future:
+
+* __User Authentication__: Add user accounts so that users can manage their own short URLs, including editing and deleting them.
+
+* __API Key Management__: Implement an API key system for authenticated access, allowing for more fine-grained control and security.
+
+* __More Metadata__: Track and store more detailed information such as geolocation and timestamp.
+
+* __Custom Shortcodes__: Allow users to create their own custom shortcodes instead of relying solely on random generation.
+
+* __Web Interface__: Build a simple frontend dashboard to provide a graphical user interface for managing URLs.
+
 
 ## License
 This project is licensed under the MIT License. See the `LICENSE` file for details.
