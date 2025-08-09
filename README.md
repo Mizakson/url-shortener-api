@@ -11,10 +11,10 @@ A simple and robust URL shortener built as a RESTful API
 * [Testing](#testing)
 * [License](#license)
 
-### Project Overview
+## Project Overview
 This project is a RESTful back-end API designed to shorten URLs into unique short-codes. This service is intended for direct usage via its API endpoints. The API includes thorough collision handling and is built to be anonymous, requiring no API keys for usage. All core functionalities have been thoroughly tested using Jest and Supertest to ensure reliability and performance.
 
-### Features
+## Features
 * __URL Shortening__: Converts long URLs into unique, 8-character shortcodes.
   
 * __Redirection__: Redirects users from the shortcode URL to the original URL.
@@ -23,7 +23,7 @@ This project is a RESTful back-end API designed to shorten URLs into unique shor
   
 * __Database Integration__: Persists URL data using a database.
 
-### Tech Stack
+## Tech Stack
 * __Node.js & Express__: Core back-end framework for the API server.
 
 * __Prisma__: ORM (Object-Relational Mapper) used for database interactions.
@@ -36,7 +36,7 @@ This project is a RESTful back-end API designed to shorten URLs into unique shor
 
 * `cors`: Middleware to enable cross-origin requests.
 
-### API Usage
+## API Usage
 The API has two primary endpoints for creating and retrieving URLs.
 1. __Create a New Short URL (POST)__
 
@@ -91,7 +91,7 @@ The API has two primary endpoints for creating and retrieving URLs.
 
   * __Success Response (302 Found)__: The server will send a redirect header, and your browser will navigate to the `originalUrl`.
 
-### Setup and Installation
+## Setup and Installation
 To run this project locally or make your own version of it, follow these steps:
   1. __Clone the repository__: 
   ``` bash
@@ -120,11 +120,11 @@ To run this project locally or make your own version of it, follow these steps:
   ```
   The server will run on the port specified in your `server.js` file.
 
-### Testing
+###Testing
   To run the test suite, run the following command
   ``` bash
   npm test
   ```
 
-### License
+## License
 This project is licensed under the MIT License. See the `LICENSE` file for details.
