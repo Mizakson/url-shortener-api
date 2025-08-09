@@ -92,9 +92,39 @@ The API has two primary endpoints for creating and retrieving URLs.
   * __Success Response (302 Found)__: The server will send a redirect header, and your browser will navigate to the `originalUrl`.
 
 ### Setup and Installation
+To run this project locally or make your own version of it, follow these steps:
+  1. __Clone the repository__: 
+  ``` bash
+  git clone https://github.com/Mizakson/url-shortener-api.git
+  cd url-shortener-api
+  ```
+  
+  2. __Install dependencies__:
+  ``` bash
+  npm install
+  ```
 
+  3. __Set up environment variables__:
+  ``` bash
+  DATABASE_URL="postgresql://[user]:[password]@[host]:[port]/[database]"
+  ```
+  
+  4. __Run database schema migrations__:  
+  ``` bash
+  npx prisma migrate dev
+  ```
+
+  5. __Start the server__:
+  ``` bash
+  npm start
+  ```
+  The server will run on the port specified in your `server.js` file.
 
 ### Testing
-
+  To run the test suite, run the following command
+  ``` bash
+  npm test
+  ```
 
 ### License
+This project is licensed under the MIT License. See the `LICENSE` file for details.
